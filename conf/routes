@@ -1,8 +1,5 @@
 GET /classify/:eventId              controllers.Application.classify(eventId: Int)
-GET /findUser                       controllers.MongodbController.findUserByEmail(id: String)
-GET /geoEsCounts                    controllers.ElasticSearchController.getGeoCounts
-GET /geoEsData                      controllers.ElasticSearchController.getGeoData(filePath: String)
-GET /errorEsData                    controllers.ElasticSearchController.getErrorEsData(filePath: String)
+GET /findUserg                       controllers.MongodbController.findUserByEmail(id: String)
 
 # Web Sockets
 GET /eventSocket                    @controllers.Application.eventSocket
