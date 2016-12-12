@@ -4,7 +4,7 @@ import java.io._
 import javax.inject.Inject
 
 import com.typesafe.config.ConfigFactory
-import models.domain.elasticsearch.Geoip
+import models.domain.storj.Geoip
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json._
 import play.api.libs.ws._
