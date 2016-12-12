@@ -1,4 +1,4 @@
-package models.domain.elasticsearch
+package models.domain.storj
 
 import play.api.libs.json._
 
