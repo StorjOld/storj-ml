@@ -1,21 +1,20 @@
 package controllers
 
-import javax.inject._
-
-import actors.Classifier.{ClassificationResult, Classify, _}
+import actors.Classifier.{ClassificationResult, Classify}
 import actors.Director.GetClassifier
+import actors.{Director, ModelPerformanceSupervisor, _}
 import actors.FetchResponseHandler.FetchResponseTimeout
 import actors.TrainingModelResponseHandler.TrainingModelRetrievalTimeout
-import actors.{Director, ModelPerformanceSupervisor, _}
 import akka.actor.{ActorRef, ActorSystem}
 import akka.pattern._
 import akka.stream.Materializer
 import akka.util.Timeout
-import play.api.Logger
+import javax.inject._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc._
 import play.api.libs.streams._
+import play.api.Logger
+import play.api.mvc._
 import scala.concurrent.duration._
 import utils.TimeoutException
 
@@ -24,15 +23,15 @@ class Application @Inject()(implicit system: ActorSystem, materializer: Material
 
   val log = Logger(this.getClass)
 
-  val eventServer = system.actorOf(EventServer.props)
+  val eventServer: ActorRef = system.actorOf(EventServer.props)
 
-  val performanceSupervisor = system.actorOf(ModelPerformanceSupervisor.props())
+  val performanceSupervisor: ActorRef = system.actorOf(ModelPerformanceSupervisor.props())
 
-  val director = system.actorOf(Director.props(eventServer), "director")
+  val director: ActorRef = system.actorOf(Director.props(eventServer), "director")
 
   implicit val timeout = Timeout(10 seconds)
 
-  def classify(eventId: Int) = Action.async(parse.empty) { implicit request =>
+  def classify(eventId: Int): Action[Unit] = Action.async(parse.empty) { implicit request =>
     (for {
       classifier <- (director ? GetClassifier).mapTo[ActorRef]
       classificationResults <- (classifier ? Classify(eventId)).map{
@@ -50,12 +49,12 @@ class Application @Inject()(implicit system: ActorSystem, materializer: Material
     case ex => InternalServerError(ex.getMessage)
   }
 
-  def eventSocket = WebSocket.accept[String, String] { request =>
+  def eventSocket: WebSocket = WebSocket.accept[String, String] { _ =>
     log.debug("Client connected to event socket")
     ActorFlow.actorRef(out => EventListener.props(out, eventServer))
   }
 
-  def performanceSocket = WebSocket.accept[JsValue, JsValue] { request =>
+  def performanceSocket: WebSocket = WebSocket.accept[JsValue, JsValue] { _ =>
     log.debug("Client connected to performance socket")
     ActorFlow.actorRef(out => EventListener.props(out, performanceSupervisor))
   }
