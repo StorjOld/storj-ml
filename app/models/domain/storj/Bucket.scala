@@ -12,5 +12,5 @@ case class Bucket(id: String,
                   storage: Int)
 
 object Bucket {
-  implicit val bucketFormat = Json.format[Bucket]
+  implicit val bucketFormat: OFormat[Bucket] = Json.format[Bucket]
 }

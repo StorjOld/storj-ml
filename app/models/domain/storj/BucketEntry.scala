@@ -10,5 +10,5 @@ case class BucketEntry(id: String,
                        mimetype: String)
 
 object BucketEntry {
-  implicit val bucketEntryFormat = Json.format[BucketEntry]
+  implicit val bucketEntryFormat: OFormat[BucketEntry] = Json.format[BucketEntry]
 }

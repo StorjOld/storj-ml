@@ -43,5 +43,5 @@ object ExchangeReport {
       }
     }
   }
-  implicit val ExchangeReportWrites = Json.writes[ExchangeReport]
+  implicit val ExchangeReportWrites: OWrites[ExchangeReport] = Json.writes[ExchangeReport]
 }

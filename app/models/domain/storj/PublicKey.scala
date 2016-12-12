@@ -5,5 +5,5 @@ import play.api.libs.json._
 case class PublicKey(id: String, user: Email, label: String)
 
 object PublicKey {
-  implicit val publicKeyFormat = Json.format[PublicKey]
+  implicit val publicKeyFormat: OFormat[PublicKey] = Json.format[PublicKey]
 }

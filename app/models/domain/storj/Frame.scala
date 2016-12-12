@@ -10,5 +10,5 @@ case class Frame(id: String,
                  created: String)
 
 object Frame {
-  implicit val frameFormat = Json.format[Frame]
+  implicit val frameFormat: OFormat[Frame] = Json.format[Frame]
 }

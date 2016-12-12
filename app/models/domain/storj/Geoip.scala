@@ -57,5 +57,5 @@ object Geoip {
       }
     }
   }
-  implicit val geoipWrites = Json.writes[Geoip]
+  implicit val geoipWrites: OWrites[Geoip] = Json.writes[Geoip]
 }

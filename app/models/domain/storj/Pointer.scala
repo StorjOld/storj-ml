@@ -10,5 +10,5 @@ case class Pointer(id: String,
                    challenges: Vector[String])
 
 object Pointer {
-  implicit val pointerFormat = Json.format[Pointer]
+  implicit val pointerFormat: OFormat[Pointer] = Json.format[Pointer]
 }

@@ -49,5 +49,5 @@ object TelemetryReport {
       }
     }
   }
-  implicit val telemetryReportWrites = Json.writes[TelemetryReport]
+  implicit val telemetryReportWrites: OWrites[TelemetryReport] = Json.writes[TelemetryReport]
 }

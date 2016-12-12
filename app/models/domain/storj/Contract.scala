@@ -17,5 +17,5 @@ case class Contract(version: Int,
                     auditCount: Int)
 
 object Contract {
-  implicit val contractFormat = Json.format[Contract]
+  implicit val contractFormat: OFormat[Contract] = Json.format[Contract]
 }

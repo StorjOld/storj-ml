@@ -10,5 +10,5 @@ case class Contact(id: String,
                    lastSeen: String)
 
 object Contact {
-  implicit val contactFormat = Json.format[Contact]
+  implicit val contactFormat: OFormat[Contact] = Json.format[Contact]
 }
