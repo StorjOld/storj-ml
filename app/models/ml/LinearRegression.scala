@@ -13,9 +13,7 @@ object  LinearRegression {
 
 	val linearRegressionCost = CostFunction(
 		f = (data: DataFrame, weights: DenseVector[Double]) => {
-
 			val counts = data.map(_.target.activeSize).reduceLeft(_ + _)
-
 			val unscaledCost = data.aggregate(0.0D)(
 				seqOp = {
 					case (currCost, elem) => {
