@@ -1,5 +1,6 @@
 GET /classify/:eventId              controllers.Application.classify(eventId: Int)
-GET /findUserg                       controllers.MongodbController.findUserByEmail(id: String)
+GET /findUser                       controllers.MongodbController.findUserByEmail(id: String)
+GET /loadExchangeReports            controllers.MongodbController.loadExchangeReports(date: String)
 
 # Web Sockets
 GET /eventSocket                    @controllers.Application.eventSocket
