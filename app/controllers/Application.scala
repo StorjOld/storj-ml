@@ -60,8 +60,3 @@ class Application @Inject()(implicit system: ActorSystem, materializer: Material
     ActorFlow.actorRef(out => EventListener.props(out, performanceSupervisor))
   }
 }
-
-
-
-
-
