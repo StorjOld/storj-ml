@@ -7,7 +7,7 @@ import play.api.libs.json.{JsString, JsValue, Reads, Writes}
 object DateTimeJson {
   val dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
 
-  val jodaDateReads = Reads[DateTime](js =>
+  val jodaDateReads: Reads[DateTime] = Reads[DateTime](js =>
     js.validate[String].map[DateTime](dtString =>
       DateTime.parse(dtString, DateTimeFormat.forPattern(dateFormat))
     )

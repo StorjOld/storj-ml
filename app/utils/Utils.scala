@@ -4,7 +4,7 @@ import breeze.linalg.DenseVector
 import models.math.OptimizationRoutine._
 import models.math.Optimizer._
 import models.math.WeightInitializer._
-import models.math.WeightUpdate
+import models.math.{OptimizationResult, WeightUpdate}
 import models.ml.LinearRegression._
 import models.preprocessing.DataConversions._
 import models.preprocessing.LabeledFeatureVector
@@ -39,7 +39,7 @@ object Utils {
 		toDataFrame(data, 10)
 	}
 
-	val mockTrainingParameters = optimize(
+	val mockTrainingParameters: (WeightUpdate, DataFrame) => OptimizationResult = optimize(
 		iter = 2,
 		seed = 123L,
 		initAlpha = 0.1,
@@ -52,6 +52,7 @@ object Utils {
 		_: DataFrame
 	)
 
-	def mockStochasticGradientDescent = (df: DataFrame) => mockTrainingParameters(stochasticGradientDescent, df)
-
+	def mockStochasticGradientDescent: (DataFrame) => OptimizationResult = { (df: DataFrame) =>
+		mockTrainingParameters(stochasticGradientDescent, df)
+	}
 }
