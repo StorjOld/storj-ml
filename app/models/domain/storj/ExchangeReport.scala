@@ -17,16 +17,16 @@ object ExchangeReport {
   implicit val ExchangeReportReads = new Reads[ExchangeReport] {
     def reads(json: JsValue): JsResult[ExchangeReport] = json match {
       case obj: JsObject => try {
-        val id = (obj \ "free").as[String]
-        val dataHash = (obj \ "used").as[String]
-        val reporterId = (obj \ "upload").as[String]
-        val farmerId = (obj \ "download").as[String]
-        val clientId = (obj \ "userAgent").as[String]
-        val exchangeStart = (obj \ "protocol").as[String]
-        val exchangeEnd = (obj \ "address").as[String]
-        val exchangeResultCode = (obj \ "port").as[Int]
-        val exchangeResultMessage = (obj \ "nodeId").as[String]
-        val created = (obj \ "lastSeen").as[String]
+        val id = (obj \ "_id").as[String]
+        val dataHash = (obj \ "dataHash").as[String]
+        val reporterId = (obj \ "reporterId").as[String]
+        val farmerId = (obj \ "farmerId").as[String]
+        val clientId = (obj \ "clientId").as[String]
+        val exchangeStart = (obj \ "exchangeStart").as[String]
+        val exchangeEnd = (obj \ "exchangeEnd").as[String]
+        val exchangeResultCode = (obj \ "exchangeResultCode").as[Int]
+        val exchangeResultMessage = (obj \ "exchangeResultMessage").as[String]
+        val created = (obj \ "created").as[String]
 
         JsSuccess(ExchangeReport(id,
           dataHash,
